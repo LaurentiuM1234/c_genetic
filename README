@@ -1,0 +1,47 @@
+================================== DISCLAMER ========================================
+(*) this project was given to me as an assignment from the following course:
+"Algoritmi Paraleli si Distribuiti". As such, the implementations for some of the
+features were already given to me by the team of TAs. I am in no way trying to
+take credit for the work that is not mine.
+=====================================================================================
+
+================================== DESCRIPTION ======================================
+(*) the goal of this project is to gain a better understanding of the POSIX threads
+API and of the general ideas behind genetic algorithms. As such, this project
+implements a parallel solution for the 0-1 Knapsack Problem using genetic algorithms.
+
+(*) the function executed by each thread is the @task function which is implemented
+in task.c.
+
+(*) for thread synchronization only barriers were required.
+=====================================================================================
+
+================================== WORKFLOW =========================================
+(*) STEPS:
+	1) prepare each individual for processing (allocate memory for the vector
+	which represents the cromosome and set different values)
+
+	2) compute fitness value for each individual
+
+	3) sort the current generation
+
+	4) copy the first 30% individuals from the current generation to the
+	following generation
+
+	5) apply mutation on the following 40% individuals
+
+	6) apply crossover on the last 30% individuals
+
+	7) (thread 0) change between generations
+
+	8) set the indexes for each individual in the current generation
+
+	9) compute the maximum fitness value local for each thread
+
+	10) (thread 0) compute the global maximum value using the maximum values
+	local to each thread
+
+	11) free resources used by individuals
+
+(*) steps 2-8 are executed until the final generation hasn't been reached
+=====================================================================================
